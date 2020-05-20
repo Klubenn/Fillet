@@ -3,40 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/09 15:16:51 by couida            #+#    #+#             */
-/*   Updated: 2019/09/12 14:24:11 by couida           ###   ########.fr       */
+/*   Created: 2019/09/07 19:09:00 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/11 14:26:33 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	size_t				i;
-	unsigned long long	number;
-	int					minus_number;
+	unsigned long long	res;
+	int					sign;
 
-	i = 0;
-	minus_number = 1;
-	number = 0;
-	while (str[i] && (str[i] == ' ' || (str[i] > 8 && str[i] < 14)))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	sign = 1;
+	res = 0;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
 	{
-		if (str[i] == '-')
-			minus_number = -1;
-		i++;
+		sign = -1;
+		str++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		number = number * 10 + str[i++] - '0';
-	if (number > 9223372036854775807 && minus_number == -1)
-		return (0);
-	if (number > 9223372036854775807 && minus_number == 1)
+	else if (*str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		res = res * 10 + (*str - '0');
+		str++;
+	}
+	if (res > 9223372036854775807 && sign == 1)
 		return (-1);
-	if (minus_number == -1)
-		return ((int)(number * -1));
-	else
-		return ((int)number);
+	if (res >= 9223372036854775807 && sign == -1)
+		return (0);
+	return (sign * (int)res);
 }

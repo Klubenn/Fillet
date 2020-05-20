@@ -3,25 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 17:48:19 by couida            #+#    #+#             */
-/*   Updated: 2019/09/09 19:08:32 by couida           ###   ########.fr       */
+/*   Created: 2019/09/04 16:16:57 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/24 15:07:36 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *b, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
+	unsigned char	*u;
 	size_t			i;
-	unsigned char	*tmp;
 
+	u = s;
 	i = 0;
-	tmp = (unsigned char*)b;
-	while (n > 0)
+	if (n != 0)
 	{
-		n--;
-		tmp[n] = 0;
+		while (i < n)
+		{
+			u[i] = 0;
+			i++;
+		}
+		s = u;
 	}
 }

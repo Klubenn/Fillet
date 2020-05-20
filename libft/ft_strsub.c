@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/10 19:34:19 by couida            #+#    #+#             */
-/*   Updated: 2019/09/16 16:33:32 by couida           ###   ########.fr       */
+/*   Created: 2019/09/11 11:59:44 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/11 15:01:58 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char			*fresh;
-	unsigned int	i;
+	char	*snew;
+	char	*sold;
+	size_t	i;
 
 	i = 0;
-	if (len > len + 1)
-		return (NULL);
 	if (!s)
 		return (NULL);
-	fresh = (char*)malloc(sizeof(char) * (len + 1));
-	if (!fresh)
+	sold = (char *)s;
+	snew = (char *)malloc(sizeof(char) * (len + 1));
+	if (!snew || (len + 1 == 0))
 		return (NULL);
-	while (s[start] && len > 0)
+	while (i < len && sold[start + i])
 	{
-		fresh[i++] = s[start++];
-		len--;
+		snew[i] = sold[start + i];
+		i++;
 	}
-	fresh[i] = '\0';
-	return (fresh);
+	snew[i] = '\0';
+	return (snew);
 }

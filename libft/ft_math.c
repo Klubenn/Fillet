@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_math.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 15:10:40 by gtristan          #+#    #+#             */
-/*   Updated: 2019/09/11 14:56:15 by gtristan         ###   ########.fr       */
+/*   Created: 2019/09/13 19:15:39 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/15 11:30:42 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+int	ft_math(int x, int y, int *res, char oper)
 {
-	if (n < 0)
+	int a;
+
+	a = 0;
+	if ((oper == '%' || oper == '/') && y == 0)
 	{
-		ft_putchar('-');
-		if (n == -2147483648)
-		{
-			ft_putnbr(-(n / 10));
-			ft_putchar('8');
-		}
-		else
-			ft_putnbr(-n);
+		ft_putstr("Wrong argument: can'd divide by zero\n");
+		return (0);
 	}
-	else
-	{
-		if (n >= 10)
-			ft_putnbr(n / 10);
-		ft_putchar(n % 10 + '0');
-	}
+	else if (oper == '+')
+		a = (x + y);
+	else if (oper == '-')
+		a = (x - y);
+	else if (oper == '*')
+		a = (x * y);
+	else if (oper == '/')
+		a = (x / y);
+	else if (oper == '%')
+		a = (x % y);
+	*res = a;
+	return (1);
 }

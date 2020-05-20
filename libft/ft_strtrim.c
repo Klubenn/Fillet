@@ -3,39 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 14:27:34 by couida            #+#    #+#             */
-/*   Updated: 2019/09/12 18:48:50 by couida           ###   ########.fr       */
+/*   Created: 2019/09/11 15:02:42 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/12 18:41:50 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+static int	ft_isblank(char const s)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
-	char	*tmp;
+	if (s == ' ' || s == '\n' || s == '\t')
+		return (1);
+	return (0);
+}
 
-	if (!s)
-		return (NULL);
-	i = 0;
-	j = ft_strlen(s);
-	if (j > 0)
+static void	ft_i_init(size_t *i)
+{
+	int a;
+
+	a = 0;
+	while (a < 10)
 	{
-		while (s[i] && (s[i] == ' ' || s[i] == '\n' || s[i] == '\t'))
-			i++;
-		while (--j > i && (s[j] == ' ' || s[j] == '\n' || s[j] == '\t'))
-			;
+		i[a] = 0;
+		a++;
 	}
-	k = 0;
-	if ((tmp = (char*)ft_memalloc(j - i + 1 + (j > 0))))
-		while (i <= j)
-			tmp[k++] = s[i++];
-	else
+}
+
+char		*ft_strtrim(char const *s)
+{
+	size_t	i[10];
+	char	*str;
+
+	ft_i_init(i);
+	if (s == NULL)
 		return (NULL);
-	tmp[k] = '\0';
-	return ((char*)tmp);
+	while (ft_isblank(s[i[0]]) == 1)
+		i[0]++;
+	i[1] = i[0];
+	while (s[i[0]])
+		i[0]++;
+	while (--i[0] > i[1] && ft_isblank(s[i[0]]) == 1)
+		;
+	i[2] = i[0] - i[1] + 1;
+	str = (char *)malloc(sizeof(char) * (i[2] + (i[1] > 0)));
+	if (!str || (i[2] + 1 == 0))
+		return (NULL);
+	while (i[3] < i[2])
+	{
+		str[i[3]] = (char const)s[i[1]];
+		i[3]++;
+		i[1]++;
+	}
+	str[i[3]] = '\0';
+	return (str);
 }

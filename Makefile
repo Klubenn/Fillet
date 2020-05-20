@@ -12,24 +12,27 @@
 
 NAME = fillit
 
-SRCS = create_figs.c fill_square.c main.c remove_figs.c dupl_fig.c get_figs.c \
-	   	print_figs.c
+SRC_DIR = src/
+SRC_C = create_figs.c fill_square.c main.c remove_figs.c dupl_fig.c \
+	 get_figs.c print_figs.c
+SRC = $(addprefix $(SRC_DIR),$(SRC_C))
 
-OBJECTS = $(SRCS:.c=.o)
+INCL_DIR = ./includes/
+INCL_H = fillit.h
+INCL = $(addprefix $(INCL_DIR),$(INCL_H))
 
-LIBFT = libft/
-
-HEADERS = ./
+LIBFT = lft
+LIBFT_DIR = ./libft/
 
 FLAGS = -Wall -Wextra -Werror
 
-all: $(NAME) LIB
+all: $(LIBFT_DIR)$(LIBFT) $(NAME) 
 
-$(NAME): LIB
-	gcc $(FLAGS) -I $(HEADERS) $(SRCS) -L $(LIBFT) -lft -o $(NAME)
+$(NAME): $(SRC) $(INCL)
+	gcc $(FLAGS) $(SRC) -I$(LIBFT_DIR) -I$(INCL_DIR) -L$(LIBFT_DIR) -$(LIBFT) -o $(NAME)
 
-LIB:
-	make -C ./libft/
+$(LIBFT_DIR)$(LIBFT):
+	make -C $(LIBFT_DIR)
 
 clean:
 	make clean -C ./libft/

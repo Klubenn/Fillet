@@ -16,7 +16,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 typedef struct		s_map
 {
@@ -28,7 +28,6 @@ typedef struct		s_map
 	struct s_map	*next_fig;
 }					t_map;
 
-void				ft_putchar(char c);
 t_map				*remove_figs(t_map *shape, t_map *sh_move);
 void				remove_figs1(t_map *shape, t_map *sh_move);
 t_map				*select_positions(t_map *shape);

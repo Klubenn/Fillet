@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isoperator.c                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/16 16:53:24 by couida            #+#    #+#             */
-/*   Updated: 2019/09/16 17:01:36 by couida           ###   ########.fr       */
+/*   Created: 2019/09/05 15:41:43 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/19 14:49:29 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isoperator(char c)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	if (c == '+' || c == '-' || c == '*' || c == '/' || c == '%')
-		return (1);
-	else
-		return (0);
+	char	*c;
+	size_t	j;
+
+	j = 0;
+	c = (char *)malloc(sizeof(char) * (n + 1));
+	if (!c || (n + 1 == 0))
+		return (NULL);
+	while (s1[j] && j < n)
+	{
+		c[j] = s1[j];
+		j++;
+	}
+	c[j] = '\0';
+	return (c);
 }

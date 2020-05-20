@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sayno.c                                         :+:      :+:    :+:   */
+/*   ft_countwords.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/16 17:14:10 by couida            #+#    #+#             */
-/*   Updated: 2019/09/16 17:23:17 by couida           ###   ########.fr       */
+/*   Created: 2019/09/13 16:50:49 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/13 17:31:21 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_sayno(int i)
+int	ft_countwords(char *s)
 {
-	write(1, " no", 3);
-	if (i > 0)
+	size_t	j;
+
+	j = 0;
+	while (*s)
 	{
-		write(1, " - ", 3);
-		ft_putnbr(i);
-		write(1, ".", 1);
+		if (!ft_isspace(*s))
+		{
+			j++;
+			while (!ft_isspace(*s) && *s)
+				s++;
+		}
+		while (ft_isspace(*s))
+			s++;
 	}
+	return (j);
 }

@@ -3,56 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/13 17:29:04 by couida            #+#    #+#             */
-/*   Updated: 2019/09/16 15:33:37 by couida           ###   ########.fr       */
+/*   Created: 2019/09/12 11:14:49 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/12 14:42:40 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	count_digits(int n)
+static int	ft_int_size(long long n, int sign)
 {
-	long long	t;
-	size_t		i;
+	int i;
 
 	i = 0;
-	t = (long long)n;
-	if (n < 0)
-	{
-		i++;
-		t = t * -1;
-	}
 	if (n == 0)
 		return (1);
-	while (t > 9)
+	while (n > 0)
 	{
+		n = n / 10;
 		i++;
-		t /= 10;
 	}
-	i++;
+	if (sign == -1)
+		i++;
 	return (i);
 }
 
 char		*ft_itoa(int n)
 {
-	long long	nbr;
-	size_t		i;
-	char		*tmp;
+	char		*s;
+	int			k;
+	int			sign;
+	long long	new;
 
-	i = count_digits(n);
-	nbr = (1 - 2 * (n < 0)) * (long long)n;
-	if (!(tmp = (char*)malloc(sizeof(char) * (i + 1))))
+	new = (long long)n;
+	sign = (new < 0) ? -1 : 1;
+	new = (new < 0) ? -new : new;
+	k = ft_int_size(new, sign);
+	if (!(s = (char *)malloc(sizeof(char) * (k + 1))))
 		return (NULL);
-	tmp[i] = '\0';
-	while (i > 0)
+	s[k--] = '\0';
+	if (new == 0)
+		s[0] = '0';
+	while (new > 0)
 	{
-		i--;
-		tmp[i] = (nbr % 10) + '0';
-		nbr /= 10;
+		s[k--] = new % 10 + '0';
+		new = new / 10;
 	}
-	if (n < 0)
-		tmp[0] = '-';
-	return (tmp);
+	if (sign == -1)
+		s[k] = '-';
+	return (s);
 }

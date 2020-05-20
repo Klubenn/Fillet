@@ -3,39 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: couida <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/14 18:22:58 by couida            #+#    #+#             */
-/*   Updated: 2019/09/14 18:48:55 by couida           ###   ########.fr       */
+/*   Created: 2019/09/13 13:18:03 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/24 15:07:16 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f) (t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list *new;
-	t_list *tmp;
+	t_list	*a;
+	t_list	*c;
 
-	if (lst)
+	if (lst == NULL)
+		return (NULL);
+	a = f(lst);
+	c = a;
+	while (lst->next)
 	{
-		new = f(lst);
-		if (new)
+		lst = lst->next;
+		if (!(a->next = f(lst)))
 		{
-			lst = lst->next;
-			tmp = new;
-			while (lst)
+			a = c;
+			while (c)
 			{
-				if ((tmp->next = f(lst)))
-				{
-					tmp = tmp->next;
-					lst = lst->next;
-				}
-				else
-					return (NULL);
+				c = a->next;
+				free(a->content);
+				free(a);
+				a = c;
 			}
-			return (new);
+			return (NULL);
 		}
+		a = a->next;
 	}
-	return (NULL);
+	return (c);
 }

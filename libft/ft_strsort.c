@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gtristan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 15:10:40 by gtristan          #+#    #+#             */
-/*   Updated: 2019/09/11 14:56:15 by gtristan         ###   ########.fr       */
+/*   Created: 2019/09/15 14:05:34 by gtristan          #+#    #+#             */
+/*   Updated: 2019/09/15 14:43:21 by gtristan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+void	ft_strsort(char **str)
 {
-	if (n < 0)
+	int		i;
+	int		j;
+	int		h;
+	char	*s;
+
+	i = 0;
+	h = 0;
+	while (str[h])
+		h++;
+	while (i < 5)
 	{
-		ft_putchar('-');
-		if (n == -2147483648)
+		j = 0;
+		while (j < 5 - 1)
 		{
-			ft_putnbr(-(n / 10));
-			ft_putchar('8');
+			if (ft_strcmp(str[j], str[j + 1]) > 0)
+			{
+				s = str[j];
+				str[j] = str[j + 1];
+				str[j + 1] = s;
+			}
+			j++;
 		}
-		else
-			ft_putnbr(-n);
-	}
-	else
-	{
-		if (n >= 10)
-			ft_putnbr(n / 10);
-		ft_putchar(n % 10 + '0');
+		i++;
 	}
 }
